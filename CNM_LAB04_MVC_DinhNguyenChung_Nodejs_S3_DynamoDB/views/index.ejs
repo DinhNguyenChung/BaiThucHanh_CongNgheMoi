@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB 4 MVC</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="content">
+      <h2 class="mt-5">Danh sách các môn học</h2>
+      <form
+        action="/save"
+        method="post"
+        class="d-flex flex-column g-2 p-3"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-2">
+          <label for="id" class="form-label">ID</label>
+          <input
+            type="text"
+            name="id"
+            id="id"
+            class="form-control form-control-sm"
+            placeholder="Nhập id..."
+            required
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control form-control-sm"
+            placeholder="Nhập name..."
+            required
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="course_type" class="form-label">Course Type</label>
+          <input
+            type="text"
+            name="course_type"
+            id="course_type"
+            class="form-control form-control-sm"
+            placeholder="Nhập course_type..."
+            required
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="semester" class="form-label">Semester</label>
+          <input
+            type="text"
+            name="semester"
+            id="semester"
+            class="form-control form-control-sm"
+            placeholder="Nhập semester..."
+            required
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="department" class="form-label">Department</label>
+          <input
+            type="text"
+            name="department"
+            id="department"
+            class="form-control form-control-sm"
+            placeholder="Nhập department..."
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label for="image" class="form-label">Image</label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="form-control form-control-sm"
+            accept="image/*"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm w-25 mx-auto">
+          Submit
+        </button>
+      </form>
+
+      <table class="table table-hover table-stripedss">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên môn học</th>
+            <th scope="col">Loại môn học</th>
+            <th scope="col">Học kỳ</th>
+            <th scope="col">Ảnh</th>
+            <th scope="col">Khoa</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(item => { %>
+          <tr>
+            <td scope="row"><%= item.id %></td>
+            <td scope="row"><%= item.tenMonHoc %></td>
+            <td scope="row"><%= item.loai %></td>
+            <td scope="row"><%= item.hocKy %></td>
+            <td scope="row">
+              <img
+                src="<%= item.image %>"
+                alt=""
+                style="width: 100px; height: auto"
+              />
+            </td>
+            <td scope="row"><%= item.khoa %></td>
+            <td scope="row">
+              <!-- Delete button inside a form -->
+              <form
+                action="/delete/<%= item.id %>"
+                method="post"
+                style="display: inline"
+              >
+                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
