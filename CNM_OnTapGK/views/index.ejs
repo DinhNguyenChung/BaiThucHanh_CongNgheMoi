@@ -4,10 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <h4>Nhà xuất bản ABZ</h4>
     <h1>Danh Mục các bài báo</h1>
+    <div class="form">
+        <form action="/subjects" method="post" enctype="multipart/form-data">
+          <div class="form-group mb-3">
+            <label for="tenbaiBao" class="form-label">Tên bài báo</label>
+            <input class="form-control" type="text" id="tenbaiBao" name="tenbaiBao" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="tenNhomTacGia">Tên tác giả</label>
+            <input class="form-control" type="text" id="tenNhomTacGia" name="tenNhomTacGia" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="ISBN">Chỉ số ISBN</label>
+            <input class="form-control" type="text" id="ISBN" name="ISBN" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="soTrang">Số trang</label>
+            <input class="form-control" type="text" id="soTrang" name="soTrang" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="namXuatBan">Năm xuất bản</label>
+            <input class="form-control" type="text" id="namXuatBan" name="namXuatBan" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="image">Hình ảnh</label>
+            <input class="form-control" type="file" id="image" name="image" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Thêm mới</button>
+        </form>
+      </div>
     <table>
         <thead>
             <tr>
@@ -17,14 +47,36 @@
                 <th>Chỉ số ISBN </th>
                 <th>Số trang</th>
                 <th>Năm xuất bản</th>
-                <th></th>
+                <th>Hình ảnh</th>
             </th>
         </thead>
         <tbody>
-            <tr>
-                
-            </tr>
-        </tbody>
+            <% if (subjects.length) { %> 
+              <% subjects.forEach(function(subject, index) { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= subject.tenbaiBao %></td>
+                  <td><%= subject.tenNhomTacGia %></td>
+                  <td><%= subject.ISBN %></td>
+                  <td><%= subject.soTrang %></td>
+                  <td><%= subject.namXuatBan %></td>
+                  <td>
+                    <img src="<%= subject.image %>" alt="" style="width: 100px; height: 100px;">
+                  </td>
+                  <td>
+                    <form action="/subjects/delete/<%= subject.id %>" method="POST">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>   
+              <% }); %> 
+            <% } else { %>
+              <tr>
+                <td colspan="7">No subjects found</td>
+              </tr>
+            <% } %>
+          </tbody>
+          
     </table>
 </body>
 </html>
